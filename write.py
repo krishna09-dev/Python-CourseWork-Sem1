@@ -45,12 +45,14 @@ class InvoiceWriter:
                 lines = file.readlines()
     
             # Update status of rented lands in the land data
-            for i, line in enumerate(lines):
+            for i in range(len(lines)):
+                line = lines[i]
                 kitta, city, direction, area, price, status = line.strip().split(", ")
                 kitta = int(kitta)
                 if kitta in [land['kitta'] for land in rented_lands]:
                     status = "Not Available"
                     lines[i] = f"{kitta}, {city}, {direction}, {area}, {price}, {status}\n"
+
     
             # Write the updated land data back to the file
             with open("land_detail.txt", "w") as file:

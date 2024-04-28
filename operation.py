@@ -1,5 +1,7 @@
 from write import InvoiceWriter
 from read import LandReader
+from write import update_land_availability
+
 import datetime
 
 class LandOperation:
@@ -74,6 +76,8 @@ class LandOperation:
                 else:
                     late_fee = 0
                 self.land_data[kitta]["status"] = "Available"
+                # Call the update_land_availability method from write.py
+                update_land_availability([{"kitta": kitta}])
                 print("Land returned successfully.")
             else:
                 print("Land is not rented or does not exist.")
