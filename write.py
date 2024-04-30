@@ -37,28 +37,34 @@ class InvoiceWriter:
             print(f"Error generating invoice: {e}")
 
 
-    @staticmethod
-    def update_land_availability(rented_lands):
+    def update_land_availability(self, returned_lands):
         try:
-            # Read the land data file and update status of rented lands
+            updated_lines = []  # List to store updated lines  
+            # Read the land data file and update status of returned lands  
             with open("land_detail.txt", "r") as file:
                 lines = file.readlines()
-    
-            # Update status of rented lands in the land data
-            for i in range(len(lines)):
-                line = lines[i]
-                kitta, city, direction, area, price, status = line.strip().split(", ")
-                kitta = int(kitta)
-                if kitta in [land['kitta'] for land in rented_lands]:
-                    status = "Not Available"
-                    lines[i] = f"{kitta}, {city}, {direction}, {area}, {price}, {status}\n"
 
-    
+            # Update status of returned lands in the land data
+            for line in lines:
+                land_info = line.strip().split(", ")
+                kitta = int(land_info[0])
+                for land in returned_lands:
+                    if land["kitta"] == kitta:
+                        land_info[-1] = "Available"  # Change status to "Available"
+                        break  # Once status is updated, no need to check further
+                updated_lines.append(', '.join(land_info) + '\n')
+
+            # Debugging check
+            print("Updated lines:")
+            for updated_line in updated_lines:
+                print(updated_line.strip())
+
             # Write the updated land data back to the file
             with open("land_detail.txt", "w") as file:
-                file.writelines(lines)
-    
+                for updated_line in updated_lines:
+                    file.write(updated_line)
+
             print("Land availability updated successfully.")
-    
+
         except Exception as e:
             print(f"Error updating land availability: {e}")
