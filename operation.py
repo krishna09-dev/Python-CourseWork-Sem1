@@ -1,7 +1,5 @@
 from write import InvoiceWriter
 from read import LandReader
-from write import InvoiceWriter
-
 import datetime
 
 class LandOperation:
@@ -64,6 +62,8 @@ class LandOperation:
             print("No land rented, so no invoice generated.")
 
     def return_land(self):
+        invoice_writer = InvoiceWriter()  # Instantiate InvoiceWriter
+        
         while True:
             kitta = int(input("Enter the kitta number of land you want to return (enter 0 to stop): "))
             if kitta == 0:
@@ -76,8 +76,8 @@ class LandOperation:
                 else:
                     late_fee = 0
                 self.land_data[kitta]["status"] = "Available"
-                # Call the update_land_availability method from write.py
-                InvoiceWriter.update_land_availability([{"kitta": kitta}])
+                # Call the update_land_availability method from InvoiceWriter
+                invoice_writer.update_land_availability([{"kitta": kitta}])
                 print("Land returned successfully.")
             else:
                 print("Land is not rented or does not exist.")
