@@ -17,16 +17,16 @@ class LandOperation:
         return " " * left_padding + text + " " * right_padding
 
     def display_land(self):
-        border_top = "╔" + "═" * 15 + "╦" + "═" * 20 + "╦" + "═" * 15 + "╦" + "═" * 10 + "╦" + "═" * 10 + "╦" + "═" * 10 + "╦" + "═" * 10 + "╗"
-        border_bottom = "═" + "═" * 15 + "╦" + "═" * 20 + "╦" + "═" * 15 + "╦" + "═" * 10 + "╦" + "═" * 10 + "╦" + "═" * 10 + "╦" + "═" * 10 + "═"
-        border_middle = "╠" + "═" * 15 + "╬" + "═" * 20 + "╬" + "═" * 15 + "╬" + "═" * 10 + "╬" + "═" * 10 + "╬" + "═" * 10 + "╬" + "═" * 10 + "╣"
-        header = "║" + self.pad_to_length("Kitta", 15) + "║" + self.pad_to_length("City/District", 20) + "║" + self.pad_to_length("Direction", 15) + "║" + self.pad_to_length("Area", 10) + "║" + self.pad_to_length("Price", 10) + "║" + self.pad_to_length("Status", 10) + "║"
+        border_top = "╔" + "═" * 15 + "╦" + "═" * 20 + "╦" + "═" * 15 + "╦" + "═" * 10 + "╦" + "═" * 10 + "╦" + "═" * 10 + "═" * 9 + "╗"
+        border_bottom = "╚" + "═" * 92 + "╝"
+        border_middle = "╠" + "═" * 15 + "╬" + "═" * 20 + "╬" + "═" * 15 + "╬" + "═" * 10 + "╬" + "═" * 10 + "╬" + "═" * 19 + "╣"
+        header = "║" + self.pad_to_length("Kitta", 15) + "║" + self.pad_to_length("City/District", 20) + "║" + self.pad_to_length("Direction", 15) + "║" + self.pad_to_length("Area", 10) + "║" + self.pad_to_length("Price", 10) + "║" + self.pad_to_length("Status", 19) + "║"
         print(border_top)
         print(header)
         print(border_middle)
 
         for kitta, details in self.land_data.items():
-            row = "║" + self.pad_to_length(str(kitta), 15) + "║" + self.pad_to_length(str(details['city']), 20) + "║" + self.pad_to_length(str(details['direction']), 15) + "║" + self.pad_to_length(str(details['area']), 10) + "║" + self.pad_to_length(str(details['price']), 10) + "║" + self.pad_to_length(str(details['status']), 10) + "║"
+            row = "║" + self.pad_to_length(str(kitta), 15) + "║" + self.pad_to_length(str(details['city']), 20) + "║" + self.pad_to_length(str(details['direction']), 15) + "║" + self.pad_to_length(str(details['area']), 10) + "║" + self.pad_to_length(str(details['price']), 10) + "║" + self.pad_to_length(str(details['status']), 19) + "║"
             print(row)
 
         print(border_bottom)

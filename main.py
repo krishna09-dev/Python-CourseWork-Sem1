@@ -7,10 +7,10 @@ def get_current_date_time():
 
 # Function to display the rental system menu
 def display_menu():
-    border_top_bottom = "+" + "-" * 88 + "+"
-    border_middle = "|" + " " * 88 + "|"
+    border_top = "╔" + "═" * 88 + "╗"
+    border_middle = "║" + " " * 88 + "║"
     # Printing the top border
-    print(border_top_bottom)
+    print(border_top)
     # Printing the middle border
     print(border_middle)
     # Printing the centered title lines
@@ -27,23 +27,24 @@ def display_menu():
     print("║" + " " * ((88 - len(location)) // 2) + location + " " * ((88 - len(location)) // 2) + "║")
     print("║" + " " * ((88 - len(date)) // 2) + date + " " * ((88 - len(date)) // 2) + "║")
     print("║" + " " * ((88 - len(time)) // 2) + time + " " * ((88 - len(time)) // 2) + "║")
-    # Printing the middle border
     print(border_middle)
+    # Printing the middle border
+    print("╚" + "═" * 88 + "╝")
     # Printing the bottom border
-    print(border_top_bottom)
+    print(border_top)
     # Printing the menu borders
-    print("+" + "-" * 88 + "+")
+    print(border_top)
     print(border_middle)
     print("║" + " " * ((88 - len("RENTAL SYSTEM MENU")) // 2) + "RENTAL SYSTEM MENU" + " " * ((88 - len("RENTAL SYSTEM MENU")) // 2) + "║")
     print(border_middle)
-    print("+" + "-" * 88 + "+")
+    print("╠" + "═" * 88 + "╣")
     print(border_middle)
     print("║" + " " * ((88 - len("1. Display Land")) // 2) + "1. Display Land" + " " * ((90 - len("1. Display Land")) // 2) + "║")
     print("║" + " " * ((88 - len("2. Rent Land")) // 2) + "2. Rent Land" + " " * ((88 - len("2. Rent Land")) // 2) + "║")
     print("║" + " " * ((88 - len("3. Return Land")) // 2) + "3. Return Land" + " " * ((88 - len("3. Return Land")) // 2) + "║")
     print("║" + " " * ((88 - len("4. Exit")) // 2) + "4. Exit" + " " * ((90 - len("4. Exit")) // 2) + "║")
     print(border_middle)
-    print("+" + "-" * 88 + "+")
+    print("╚" + "═" * 88 + "╝")
 
 
 def main():
