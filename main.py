@@ -30,8 +30,7 @@ def display_menu():
     print(border_middle)
     # Printing the middle border
     print("╚" + "═" * 88 + "╝")
-    # Printing the bottom border
-    print(border_top)
+    
     # Printing the menu borders
     print(border_top)
     print(border_middle)
