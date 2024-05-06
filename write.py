@@ -62,35 +62,32 @@ class InvoiceWriter:
 
     def update_rented_lands_status(self, rented_lands):
         try:
-            updated_lines = []  # List to store updated lines  
-            # Read the land data file and update status of rented lands  
+            updated_lines = []  # List to store updated lines
+            # Read the land data file and update status of rented lands
             with open("land_detail.txt", "r") as file:
                 lines = file.readlines()
-
+    
             # Update status of rented lands in the land data
             for line in lines:
-                land_info = line.replace(" ", "").split(", ")
+                land_info = line.strip().split(",")  # Remove leading/trailing whitespace and split by comma
                 kitta = int(land_info[0])
                 for land in rented_lands:
                     if land["kitta"] == kitta:
                         land_info[-1] = "Not Available"  # Change status to "Not Available" for rented lands
                         break  # Once status is updated, no need to check further
-                updated_line = land_info[0]
-                for item in land_info[1:]:
-                    updated_line += ', ' + item
-                updated_line += '\n'
+                updated_line = ", ".join(land_info) + '\n'
                 updated_lines.append(updated_line)
-
-                
+    
             # Write the updated land data back to the file
             with open("land_detail.txt", "w") as file:
                 for updated_line in updated_lines:
                     file.write(updated_line)
-
+    
             print("Land availability updated successfully.")
-
+    
         except Exception as e:
             print(f"Error updating land availability: {e}")
+
 
 
 
