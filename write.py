@@ -97,27 +97,31 @@ class InvoiceWriter:
             # Read the land data file and update status of returned lands  
             with open("land_detail.txt", "r") as file:
                 lines = file.readlines()
-
+    
             # Update status of returned lands in the land data
             for line in lines:
-                land_info = line.replace(" ", "").split(", ")  # Remove leading/trailing whitespace before splitting
+                land_info = line.strip().split(",")  # Remove leading/trailing whitespace and split by comma
                 kitta = int(land_info[0])
                 for land in returned_lands:
                     if land["kitta"] == kitta:
                         land_info[-1] = "Available"  # Change status to "Available"
                         break  # Once status is updated, no need to check further
-                updated_line = ", ".join(land_info) + '\n'
+                updated_line = ""
+                for i in range(len(land_info) - 1):
+                    updated_line += land_info[i] + ", "
+                updated_line += land_info[-1] + '\n'  # Append the status separately
                 updated_lines.append(updated_line)
-
+    
             # Write the updated land data back to the file
             with open("land_detail.txt", "w") as file:
                 for updated_line in updated_lines:
                     file.write(updated_line)
-
+    
             print("Land availability updated successfully.")
-
+    
         except Exception as e:
             print(f"Error updating land availability: {e}")
+    
 
 
 
