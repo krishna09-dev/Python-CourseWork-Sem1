@@ -95,39 +95,53 @@ class LandOperation:
         
     
 
-    def return_lands(self, lands_to_return):
+    def return_lands(self):
         invoice_writer = InvoiceWriter()  # Instantiate InvoiceWriter
+    
+        while True:
+            try:
+                lands_to_return = int(input("How many lands do you want to return? "))
+                if lands_to_return > 0:
+                    break
+                else:
+                    print("Please enter a valid number of lands to return (greater than 0).")
+            except ValueError:
+                print("Please enter a valid number.")
+    
         while True:
             customer = input("Enter your name: ").replace(" ", "")  # Get user input and remove leading/trailing whitespace
             if customer:  # Check if the input is not empty
                 break  # If input is valid, exit the loop
             else:
                 print("Name cannot be empty. Please enter your name.")
-
+    
         total_amount_fine = 0
         lands = []
         for a in range(lands_to_return):
-            kitta = int(input("Enter the kitta number of the land to return: "))
-            land = self.land_data[kitta]
-            if kitta in self.land_data and self.land_data[kitta]["status"].lower() == "not available":
-                months_late = int(input("Enter the number of months land with kitta "+str(kitta)+ " is late: "))
-                if months_late > 0:
-                    late_fee = land["price"] * 1.5 * months_late  # Late fee is 150% of monthly rent per month late
-                    print("Late fee for "+str(months_late)+" month(s) is "+ str(late_fee))
+            while True:
+                kitta = int(input("Enter the kitta number of the land to return: "))
+                if kitta in self.land_data and self.land_data[kitta]["status"].lower() == "not available":
+                    break
                 else:
-                    late_fee = 0
-                total_amount_fine += late_fee  # Add late fee to total amount
-                lands.append({
-                    "kitta": kitta,
-                    "city": land["city"],  # Get city from land data
-                    "area": land["area"],  # Get area from land data
-                    "price": land["price"],  # Get price from land data
-                    "late_months": months_late,  # Include late months in the returned lands information
-                    "fine": late_fee  # Include late fee as fine in the returned lands information
-                })
+                    print("Land with kitta " + str(kitta) + " is not rented or does not exist.")
+    
+            land = self.land_data[kitta]
+            months_late = int(input("Enter the number of months land with kitta " + str(kitta) + " is late: "))
+            if months_late > 0:
+                late_fee = land["price"] * 1.5 * months_late  # Late fee is 150% of monthly rent per month late
+                print("Late fee for " + str(months_late) + " month(s) is " + str(late_fee))
             else:
-                print("Land with kitta "+str(kitta)+" is not rented or does not exist.")
-
+                late_fee = 0
+            total_amount_fine += late_fee  # Add late fee to total amount
+            lands.append({
+                "kitta": kitta,
+                "city": land["city"],  # Get city from land data
+                "area": land["area"],  # Get area from land data
+                "price": land["price"],  # Get price from land data
+                "late_months": months_late,  # Include late months in the returned lands information
+                "fine": late_fee  # Include late fee as fine in the returned lands information
+            })
+    
         if lands:  # Generate return invoice only if there are lands to return
             current_date = datetime.datetime.now().strftime('%Y-%m-%d')
             bill_number = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
@@ -138,3 +152,4 @@ class LandOperation:
             }
             invoice_writer.generate_invoice_return(transaction_details, current_date, customer, bill_number)
             invoice_writer.print_return_invoice_details(transaction_details, current_date, customer, bill_number)
+    

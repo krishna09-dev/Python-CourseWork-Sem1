@@ -66,7 +66,7 @@ class InvoiceWriter:
             # Read the land data file and update status of rented lands
             with open("land_detail.txt", "r") as file:
                 lines = file.readlines()
-    
+
             # Update status of rented lands in the land data
             for line in lines:
                 land_info = line.strip().split(",")  # Remove leading/trailing whitespace and split by comma
@@ -75,18 +75,19 @@ class InvoiceWriter:
                     if land["kitta"] == kitta:
                         land_info[-1] = "Not Available"  # Change status to "Not Available" for rented lands
                         break  # Once status is updated, no need to check further
-                updated_line = ", ".join(land_info) + '\n'
+                updated_line = ", ".join(field.strip() for field in land_info) + '\n'  # Rejoin the fields without extra spaces
                 updated_lines.append(updated_line)
-    
-            # Write the updated land data back to the file
+
+            # Write the updated land data back to the file along with original lines
             with open("land_detail.txt", "w") as file:
-                for updated_line in updated_lines:
-                    file.write(updated_line)
-    
+                file.writelines(updated_lines)
+
             print("Land availability updated successfully.")
-    
+
         except Exception as e:
             print(f"Error updating land availability: {e}")
+
+
 
 
 
@@ -106,21 +107,19 @@ class InvoiceWriter:
                     if land["kitta"] == kitta:
                         land_info[-1] = "Available"  # Change status to "Available"
                         break  # Once status is updated, no need to check further
-                updated_line = ""
-                for i in range(len(land_info) - 1):
-                    updated_line += land_info[i] + ", "
-                updated_line += land_info[-1] + '\n'  # Append the status separately
+                updated_line = ", ".join(field.strip() for field in land_info) + '\n'  # Rejoin the fields without extra spaces
                 updated_lines.append(updated_line)
     
             # Write the updated land data back to the file
             with open("land_detail.txt", "w") as file:
-                for updated_line in updated_lines:
-                    file.write(updated_line)
+                file.writelines(updated_lines)
     
             print("Land availability updated successfully.")
     
         except Exception as e:
             print(f"Error updating land availability: {e}")
+
+
     
 
 

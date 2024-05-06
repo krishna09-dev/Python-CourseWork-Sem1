@@ -56,8 +56,7 @@ def main():
         elif choice == "2":
             land_operation.rent_land()
         elif choice == "3":
-            lands_to_return = int(input("Enter the number of lands to return: "))
-            land_operation.return_lands(lands_to_return)
+            land_operation.return_lands()
         elif choice == "4":
             print("\nThank you for using the Land Rental System.")
             break
